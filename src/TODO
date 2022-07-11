@@ -1,0 +1,21 @@
+Demander si on peut avoir un comportement par défaut lors de l'accès à une page.
+
+Refresh page : current discussion is not in green
+
+
+
+make subscription useful, with username and password local authentication, or remove subscription
+make different color/positionning for own messages
+
+sort activities by users last message/passage
+
+redirect user from "subscribe" page after he loggedin
+login user after he registered
+
+
+New Fuctionalities
+	Search tool for activities
+	Search tool inside chats
+	Sorting tools for activities
+	Show number of messages last week/users that participated
+	Possibility to create Events (that will desappear 1 week after date of event)

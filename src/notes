@@ -1,0 +1,5 @@
+To host in a way that it can be accessible throuht local net run
+HOST=0.0.0.0 npm run start
+
+then access it through (IP)
+192.168.3.50:3000

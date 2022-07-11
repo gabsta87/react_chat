@@ -2,7 +2,7 @@ import {BrowserRouter,Route,Routes} from "react-router-dom";
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-import { getDatabase } from "firebase/database";
+import { getDatabase,ref } from "firebase/database";
 import { useState } from "react";
 
 import MainPage from './modules/MainPage';
@@ -35,6 +35,17 @@ const dbConnect = DBConnect(db);
 function App() {
   const [currentUser, setCurrentUser] = useState("");
   const [lastActivityIndex,setLastActivityIndex] = useState(-1);
+  
+  let messagesListener ;
+  const usersListener = ref(db,"Users");
+
+  let listeners = [];
+  listeners.push(messagesListener);
+  listeners.push(usersListener);
+
+  const getListener = () =>{
+    return messagesListener;
+  }
 
   return (
     <>
@@ -56,6 +67,8 @@ function App() {
             db={db} 
             dbConnect={dbConnect} 
             currentUser={currentUser}
+            getListener={getListener}
+            usersListener={usersListener}
             />} />
           <Route path="/subscribe/" element={<Subscribe dbConnect={dbConnect} app={app}/>} />
           <Route path="/pendingrequests/" element={<PendingRequests 
