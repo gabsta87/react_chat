@@ -13,9 +13,8 @@ const Discussion = (props) => {
     const tableName = "Messages"
     const usersTableName = "Users"
     const [messagesList,setMessagesList] = useState([]);
-    useEffect(_=> getContent(),[param.discussionID]);
     const [userMessage,setUserMessage] = useState("");
-    
+
     let listeners = [];
     let usersList = [];
 
@@ -25,7 +24,7 @@ const Discussion = (props) => {
     listeners.push(messagesListener);
     listeners.push(usersListener);
 
-    const getContent = () => {
+    useEffect (() => {
         setMessagesList([]);
 
         onValue(usersListener,(snapshot) => {
@@ -33,7 +32,7 @@ const Discussion = (props) => {
             const object = snapshot.val();
             for (const key in object) {
                 const user = object[key];
-                usersList.push({...user, uid: key}) 
+                usersList.push({...user, uid: key})
             }
         });
 
@@ -58,16 +57,18 @@ const Discussion = (props) => {
             });
             setMessagesList(tempMessages);
 
-            // // TODO IMPORTANT find the right place to remove listeners
-            // console.log("listeners = ",listeners);
-            // listeners.forEach(element=>{
-            //     off(element);
-            // });
-            // listeners = [];
-            // // Other possibility
-            // off(messagesListener);
         });
-    }
+        return () => {
+            // TODO IMPORTANT find the right place to remove listeners
+            console.log("listeners = ",listeners);
+            listeners.forEach(element=>{
+                off(element);
+            });
+            listeners = [];
+            // Other possibility
+            off(messagesListener);
+        }
+    },[param.discussionID])
 
     const inputReference = React.createRef();
 
@@ -77,7 +78,7 @@ const Discussion = (props) => {
         className='message-list'
         lockable={true}
         toBottomHeight={'100%'}
-        dataSource={messagesList} 
+        dataSource={messagesList}
         />
         {props.currentUser !== null &&
         <Input
