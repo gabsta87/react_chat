@@ -1,5 +1,3 @@
-import Activities from "./Activities"
-
 const MainPage = (props) => {
 
     return(
