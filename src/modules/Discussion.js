@@ -59,8 +59,6 @@ const Discussion = (props) => {
 
         });
         return () => {
-            // TODO IMPORTANT find the right place to remove listeners
-            console.log("listeners = ",listeners);
             listeners.forEach(element=>{
                 off(element);
             });
